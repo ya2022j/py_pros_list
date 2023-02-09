@@ -1,0 +1,36 @@
+
+1. pip3 install -r requirements.txt
+
+
+2. python3 create_db.py
+
+
+3. Mysql 5.5.18版本保存Emoji表情, 日本語　异常解决方法
+
+
+
+查看保存到 Column 的数据，发现保存数据中【包含 Emoji表情】；
+
+Emoji表情是【4个字节】，当时使用的MYSQL版本为【5.5.18】，数据库的编码为UTF8，而UTF8只能保存【3个字节】的数据；
+
+解决方案
+将 Mysql 数据库【字符编码】从【utf8】改为【utf8mb4】；
+
+具体操作
+1、修改MySQL字符编码
+修改my.cnf
+
+ [mysqld] character-set-server=utf8mb4
+
+ [mysql] default-character-set=utf8mb4
+
+**修改后一定要重启Mysql服务 **
+
+ 2、修改数据库表字符编码
+命令
+
+alter table TABLE_NAME convert to character set utf8mb4 collate utf8mb4_bin;
+alter table message convert to character set utf8mb4 collate utf8mb4_bin;
+
+
+systemctl restart mariadb.service
