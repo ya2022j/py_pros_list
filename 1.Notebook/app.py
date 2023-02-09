@@ -38,7 +38,7 @@ def is_pw(msg=None):
     if msg is None:
         msg = "ちゃんと考えてみてくださいね"
     def _is_pw(form,field):
-        if field.data !="":
+        if field.data !=1:
             raise ValidationError(msg)
     return _is_pw
 
